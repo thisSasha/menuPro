@@ -1,4 +1,5 @@
 body {
+    overflow: hidden;
     --color0: #1a181c;
     --color1: #71EA28;
     --color2: #3F5C72;
