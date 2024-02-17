@@ -6,6 +6,7 @@ body {
     height: 100vh;
     background: url('../img/Back.jpg');
     background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -31,7 +32,7 @@ body {
 
 @keyframes toTop {
     0% {
-        transform: translateY(150%);
+        transform: translateY(70%);
         opacity: 0;
     }
     100% {
