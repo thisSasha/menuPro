@@ -16,6 +16,7 @@ body {
 .startPage__main {
     margin: auto;
     width: 80%;
+    flex-shrink: 0;
     padding: 24px;
     color: var(--colorWhite);
     position: absolute;
