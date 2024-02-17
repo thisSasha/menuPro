@@ -1,54 +1,22 @@
-* {
-    font-family: 'Balsamiq Sans', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
+/*Start page ⬇ */
 body {
-    display: flex;
+    display: flex; 
     justify-content: center;
     align-items: center;
     height: 100vh;
-    --color1: #71EA28;
-    --colorWhte: #FEFEF5;
-    background-size: contain;
+    background: url('../img/Back.jpg');
     background-position: center;
-    background: url('../Bg.jpg');
+    background-size: cover;
 }
 
-.blur {
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    z-index: 1;
-    background: linear-gradient(-45deg, rgba(127, 127, 127, 0.397), rgba(0, 0, 0, 0.553), rgba(127, 127, 127, 0.493));
-}
 
-h1, h2 {
-    color: var(--colorWhte);
-}
 
-h1 {
-    font-size: 72px;
-    line-height: 80%;
-}
 
-h2 {
-    font-size: 20px;
-    line-height: 150%;
-}
-
-p {
-    color: var(--color1);
-    font-size: 16px;
-}
-
-/*Start page ⬇ */
 .startPage__main {
     margin: auto;
     width: 80%;
     padding: 24px;
-    color: var(--colorWhte);
+    color: var(--colorWhite);
     position: absolute;
     z-index: 2;
     display: flex;
@@ -58,6 +26,18 @@ p {
     gap: 40px;
     top: 50vh;
     transform: translateY(-50%);
+    animation: toTop 1s ease-in-out;
+}
+
+@keyframes toTop {
+    0% {
+        transform: translateY(150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-50%);
+        opacity: 1;
+    }
 }
 
 
@@ -80,4 +60,11 @@ p {
     border-radius: 10px;
 }
 
+
+
+
+.logo {
+    position: fixed;
+    top: 10vh;
+}
 /*Start page ⬆ */
