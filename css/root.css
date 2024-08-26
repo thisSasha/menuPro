@@ -1,0 +1,23 @@
+.light-theme {
+    --color0: rgba(255, 255, 255, 0.7);
+    --color1: #f4f9fb;
+    --color1-1: #f4f9fb59;
+    --color1-5: #f4f9fbc5;
+    --color2: #bdc3af;
+    --color3: #87232f;
+    --color4: #050505;
+    --color5: #5c5241;
+    --red: red;
+}
+
+.dark-theme {
+    --color0: rgba(0, 0, 0, 0.7);
+    --color5: #5c5241;
+    --color1: #060606;
+    --color1-1: #120f0c59;
+    --color1-5: #150b04c5;
+    --color2: #bdc3af;
+    --color3: #87232f;
+    --color4: #f4f9fb;
+    --red: red;
+}

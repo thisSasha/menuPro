@@ -1,35 +1,36 @@
-<!DOCTYPE html>
-<html lang='ru'>
+<html lang="ru">
 
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
-    <link rel='stylesheet' href='./css/indexStyle.css'>
-    <link rel="stylesheet" href="./css/startPage.css">
-
-    <meta charset='UTF-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-
-    <title>Menu</title>
-
-    <script defer src="./js/store.js"></script>
-    <script defer src="./js/index.js"></script>
-    <script defer src='./js/interactive.js'></script>
+    <link rel="stylesheet" href="./css/root.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
 </head>
 
-<body>
-    <img src="./img/Logo.svg" alt="" class="logo">
-    <div class="startPage__main">
-        <h1>MENU</h1>
-        <h2>Choose language <br> Выберите язык</h2>
-        <div class="main__buttonsLang">
-            <button class="buttonsLang__english">ENGLISH</button>
-            <button class="buttonsLang__russian">РУССКИЙ</button>
+<body class="light-theme">
+    <div class="overlay">
+    <a href="#" class="body__logo"><img src="./img/main/logo.svg" alt=""></a>
+    <div class="container">
+        <div class="page__container">
+            <h1 class="page__title">shakespeare</h1>
+            <h2 class="page__subtitle">coffee & bistro</h2>
+            <hr>
+            <div class="language-selection">
+                <p class="language-selection__text">Выберите язык</p>
+                <p class="language-selection__text">Choose a language</p>
+                <p class="language-selection__text">Wählen Sie eine Sprache</p>
+            </div>
+        </div>
+        <div class="language-links">
+            <a class="language-links__item" href="menu-ru.html">RU</a>
+            <a class="language-links__item" href="menu-en.html">EN</a>
+            <a class="language-links__item" href="menu-de.html">DE</a>
         </div>
     </div>
+
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
