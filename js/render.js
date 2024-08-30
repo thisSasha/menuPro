@@ -1,21 +1,34 @@
+import { dishesData, cartData, data } from "./store.js";
+
+
+
+let isCartOpen = false;
+
+
+
 function generatePortions(price) {
     let result = '';
     for (let key in price) {
         result += `
-                            <div class="card__portion">
-                                <p class="portion__name _size1">
-                                    Порция <span class="portion__size">${key}</span> — <span class="portion__price">${price[key]}</span>${data.valute}
-                                </p>
-                                <div class="portion__management">
-                                    <button>-</button>
-                                    <p>0</p>
-                                    <button>+</button>
-                                </div>
-                            </div>
+        <div class="card__portion">
+            <p class="portion__name _size1">
+                Порция <span class="portion__size">${key}</span> — <span class="portion__price">${price[key]}</span>${data.valute}
+            </p>
+            <div class="portion__management">
+                <button class="portion__remove">-</button>
+                <p>0</p>
+                <button class="portion__add">+</button>
+            </div>
+        </div>
         `;
     };
     return result;
 };
+
+
+
+
+
 
 for (let i = 0; i < Object.keys(dishesData).length; i++) {
     const el = Object.keys(dishesData)[i];
@@ -53,6 +66,7 @@ for (let i = 0; i < Object.keys(dishesData).length; i++) {
 
     let link = document.createElement('a');
     link.href = `#.#${el}`;
+    link.id = 'to_' + el;
     link.innerHTML = dishesData[el].name[data.language];
 
     if (i == 0) {
@@ -72,3 +86,20 @@ for (let i = 0; i < Object.keys(dishesData).length; i++) {
 
 
 };
+
+
+
+function generateCart() {
+    let isCartEmpty = true;
+    let cartDom = document.querySelector('.nav__cart')
+    
+
+    if (!isCartEmpty && !isCartOpen) {
+        cartDom.classList.add('_active');
+    } else {
+        cartDom.classList.remove('_active');
+    };
+};
+
+
+generateCart();

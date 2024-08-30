@@ -38,6 +38,48 @@ nav {
 }
 
 
+@keyframes shake {
+    0% {
+        transform: translate(0, 0);
+    }
+    5% {
+        transform: translate(3.5%, 3.5%);
+    }
+    10% {
+        transform: translate(-3.5%, -3.5%);
+    }
+    15% {
+        transform: translate(3.5%, 3.5%);
+    }
+    20% {
+        transform: translate(-3.5%, -3.5%);
+    }
+    25% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.nav__cart._active {
+    position: relative;
+    animation: shake 2.4s ease-in-out infinite;
+}
+
+.nav__cart._active::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    color: white;
+    background-color: orange;
+    border-radius: 50%;
+}
+
+
 
 
 
@@ -200,3 +242,5 @@ nav {
     color: var(--color1);
     transform: scale(101%);
 }
+
+

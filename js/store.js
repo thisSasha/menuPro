@@ -1,9 +1,9 @@
-let data = {
+export let data = {
     valute: '$',
     language: document.documentElement.lang,
 };
 
-let dishesData = {
+export let dishesData = {
     'category1': {
         name: {
             ru: 'Основные блюда',
@@ -226,21 +226,34 @@ let dishesData = {
 };
 
 
-let dishesCardData = [
-    {
+
+
+
+
+export let cartData = {
+    'category3': {
         name: {
-            ru: 'Ягодный пирог',
-            en: 'Berry pie',
-            de: 'Beerenkuchen',
+            ru: 'Десерты',
+            en: 'Desserts',
+            de: 'Nachspeisen',
         },
-        price: {
-            size: 1,
-            price: 4,
-        },
-        description: {
-            ru: 'Домашний пирог с лесными ягодами.',
-            en: 'Homemade pie with forest berries.',
-            de: 'Hausgemachter Kuchen mit Waldbeeren.',
-        },
+        items: [
+            {
+                name: {
+                    ru: 'Шоколадный торт',
+                    en: 'Chocolate cake',
+                    de: 'Schokoladenkuchen',
+                },
+                price: {
+                    1: [6, 1],
+                    2: [12, 0],
+                },
+                description: {
+                    ru: 'Влажный шоколадный торт с ганашем.',
+                    en: 'Moist chocolate cake with ganache.',
+                    de: 'Feuchter Schokoladenkuchen mit Ganache.',
+                },
+            },
+        ],
     },
-];
+};

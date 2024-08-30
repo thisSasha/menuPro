@@ -70,7 +70,13 @@ hr {
     border: 2px solid var(--color3);
 }
 
-._circleBtn:hover {
+._circleBtn:hover, ._circleBtn:hover * {
+    background-color: var(--color3);
+    color: var(--color1);
+    transform: scale(1.1);
+}
+
+._circleBtn:active, ._circleBtn:active * {
     background-color: var(--color3);
     color: var(--color1);
     transform: scale(1.1);
