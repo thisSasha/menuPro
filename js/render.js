@@ -41,10 +41,10 @@ export function renderMenu() {
                     card.classList.add('_inCart');
                 };
             };
-
+            console.log(`./img/menu/${item.name.ru}.jpg`);
             card.innerHTML = `
                 <div class="card__img">
-                    <img src="./img/menu/dish1.jpg" alt="">
+                    <img src="./img/menu/${item.name.ru}.jpg" alt="">
                 </div>
                 <div class="card__content">
                     <div class="card__info">
@@ -96,13 +96,7 @@ export function renderMenu() {
                     const portionName = button.getAttribute('data-size');
                     const input = document.querySelector(`input[data-category="${category}"][data-index="${index}"][data-size="${portionName}"]`);
                     const currentValue = parseInt(input.value, 10) || 0;
-                    if (currentValue === 1) {
-                        showConfirmationPopup(() => {
-                            updateMenu(category, dishData, index, portionName, 'remove');
-                        });
-                    } else {
-                        updateMenu(category, dishData, index, portionName, 'remove');
-                    };
+                    updateMenu(category, dishData, index, portionName, 'remove');
                 });
             });
 
@@ -223,7 +217,7 @@ export function renderCart() {
             if (portions.length > 0) {
                 itemCard.innerHTML = `
                     <div class="card__img">
-                        <img src="./img/menu/dish1.jpg" alt="">
+                        <img src="./img/menu/${item.name.ru}.jpg" alt="">
                     </div>
                     <div class="card__content">
                         <div class="card__info">

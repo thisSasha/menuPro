@@ -44,7 +44,7 @@ function processData(data) {
 
     const dishData = {};
     objectsArray.forEach(item => {
-        const categoryKey = item['category-en'];
+        const categoryKey = item['category-en'].split(' ').join('_');
 
         if (!dishData[categoryKey]) {
             dishData[categoryKey] = {
