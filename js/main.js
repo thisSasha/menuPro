@@ -1,79 +1,75 @@
-import './store.js'
+import { renderMenu, renderText } from "./render.js";
+import { sendBot } from './telegram.js';
 
-const dishesNav = document.querySelector('.dishes__nav');
-window.addEventListener('scroll', () => {
-    const rectTop = dishesNav.getBoundingClientRect().top;
+const cartButton = document.querySelector('.nav__cart');
+const cart = document.querySelector('.cart');
+const navTheme = document.querySelector('.nav__theme');
+const callButton = document.querySelector('#callOfficiant');
+const callPopup = document.querySelector('.popup_call');
 
-    if (rectTop <= 50) {
-        dishesNav.classList.add('_fullwidth');
-    } else {
-        dishesNav.classList.remove('_fullwidth');
-    };
-});
-
-
-document.querySelectorAll('.dishes__nav > a').forEach((el) => {
-    el.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        document.querySelectorAll('.dishes__nav > a').forEach((elem) => {
-            elem.classList.remove('_active');
-        });
-        
-        el.classList.add('_active');
-        
-
-        document.querySelector(el.href.split('#.')[1]).scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
-    });
-
-});
-
-
-function closestCard() {
-    const cards = document.querySelectorAll('section');
-    let closest = null;
-    let closestDistance = Infinity;
-
-    cards.forEach(card => {
-        const distance = Math.abs(card.getBoundingClientRect().top);
-        if (distance < closestDistance + 100) {
-            closestDistance = distance;
-            closest = card;
-        };
-    });
-
-    return closest;
+export function main() {
+    renderMenu();
+    renderText();
+    observeSections();
 };
 
-window.addEventListener('scroll', () => {
-    const activeLink = document.getElementById('to_' + closestCard().id);
+window.addEventListener('scroll', observeSections);
 
-    document.querySelectorAll('.dishes__nav > a').forEach((el) => {
-        el.classList.remove('_active');
-    });
-    
-    activeLink.classList.add('_active');
-});
+function observeSections() {
+    const sections = document.querySelectorAll('.section');
+    const links = document.querySelectorAll('.dishes__link');
+    let closestSection = null;
+    let closestDistance = Infinity;
 
+    if (!sections.length || !links.length) return;
 
-
-document.querySelectorAll('.portion__add').forEach((el) => {
-    el.addEventListener('click', (e) => {
-        let dishesCount = el.parentNode.childNodes[3];
-        dishesCount.innerHTML = parseInt(dishesCount.innerHTML) + 1;
-        
-    });
-});
-
-document.querySelectorAll('.portion__remove').forEach((el) => {
-    el.addEventListener('click', (e) => {
-        let dishesCount = el.parentNode.childNodes[3];
-        if (parseInt(dishesCount.innerHTML) > 0) {
-            dishesCount.innerHTML = parseInt(dishesCount.innerHTML) - 1;
+    sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestSection = section;
         };
-         
     });
-});
+
+    if (closestSection) {
+        links.forEach(link => link.classList.remove('_active'));
+        const activeLink = document.querySelector(`.dishes__link[href="#${closestSection.id}"]`);
+        if (activeLink) activeLink.classList.add('_active');
+    };
+};
+
+cartButton.onclick = () => {
+    cartButton.classList.toggle('_active');
+    cart.classList.toggle('_active');
+    document.body.classList.toggle('_whenCart');
+};
+
+navTheme.onclick = () => {
+    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('light-theme');
+};
+
+let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+document.body.classList.add(`${theme}-theme`);
+
+if (theme !== 'light' && theme !== 'dark') {
+    document.body.classList.add('light-theme');
+};
+
+let initDistance = null;
+
+window.onscroll = () => {
+    const dishesNav = document.querySelector('.dishes__nav');
+    const nav = document.querySelector('nav');
+    if (dishesNav && nav) {
+        const adjustedDistance = dishesNav.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+        if (initDistance === null) initDistance = adjustedDistance;
+        dishesNav.classList.toggle('_fullwidth', initDistance < adjustedDistance);
+    };
+};
+
+callButton.onclick = () => {
+    sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
+    callPopup.classList.add('_active');
+};

@@ -1,7 +1,48 @@
 export let data = {
     valute: '$',
     language: document.documentElement.lang,
+    name: 'Shakespeare'
 };
+
+
+export let languageData = {
+    ru: {
+        'title': 'Меню | ' + data.name,
+        '#menuTitle': 'Меню',
+        '#orderTitle': 'Ваш заказ',
+        '#callOfficiant': 'Вызвать официанта',
+        'forJs': {
+            total: 'Итого',
+            portion: 'Порция',
+            count: 'Количество'
+        },
+    },
+    en: {
+        'title': 'Menu | ' + data.name,
+        '#menuTitle': 'Menu',
+        '#orderTitle': 'Your Order',
+        '#callOfficiant': 'Call the waiter',
+        'forJs': {
+            total: 'Total',
+            portion: 'Portion',
+            count: 'Count'
+        },
+    },
+    de: {
+        'title': 'Menü | ' + data.name,
+        '#menuTitle': 'Menü',
+        '#orderTitle': 'Ihre Bestellung',
+        '#callOfficiant': 'Kellner rufen',
+        'forJs': {
+            total: 'Gesamt',
+            portion: 'Portion',
+            count: 'Anzahl'
+        },
+    },
+};
+
+
+
 
 export let dishesData = {
     'category1': {
@@ -20,6 +61,7 @@ export let dishesData = {
                 price: {
                     1: 2,
                     2: 5,
+                    3: 52,
                 },
                 description: {
                     ru: 'Он очень молочный',
@@ -226,34 +268,21 @@ export let dishesData = {
 };
 
 
+export let setDishesData = function (newData) {
+    dishesData = newData;
+    console.log(dishesData);
+};
 
-
-
+export let getDishesData = function () {
+    return dishesData;
+};
 
 export let cartData = {
-    'category3': {
-        name: {
-            ru: 'Десерты',
-            en: 'Desserts',
-            de: 'Nachspeisen',
-        },
-        items: [
-            {
-                name: {
-                    ru: 'Шоколадный торт',
-                    en: 'Chocolate cake',
-                    de: 'Schokoladenkuchen',
-                },
-                price: {
-                    1: [6, 1],
-                    2: [12, 0],
-                },
-                description: {
-                    ru: 'Влажный шоколадный торт с ганашем.',
-                    en: 'Moist chocolate cake with ganache.',
-                    de: 'Feuchter Schokoladenkuchen mit Ganache.',
-                },
-            },
-        ],
-    },
+    
+};
+
+
+
+export function setCartData(newData) {
+    cartData = newData;
 };

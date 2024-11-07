@@ -2,9 +2,6 @@ body {
     padding: 80px 0;
 }
 
-
-
-
 nav {
     position: fixed;
     top: 0;
@@ -14,15 +11,13 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 8px 16px;
-    z-index: 11;
+    z-index: 103;
     background: var(--color1);
 }
 
 .nav__changeLang {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
     gap: 12px;
 }
 
@@ -37,94 +32,62 @@ nav {
     width: 100%;
 }
 
-
-@keyframes shake {
-    0% {
-        transform: translate(0, 0);
-    }
-    5% {
-        transform: translate(3.5%, 3.5%);
-    }
-    10% {
-        transform: translate(-3.5%, -3.5%);
-    }
-    15% {
-        transform: translate(3.5%, 3.5%);
-    }
-    20% {
-        transform: translate(-3.5%, -3.5%);
-    }
-    25% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(0, 0);
-    }
+.nav__cart,
+.nav__cart::before {
+    transition: 400ms;
 }
 
-.nav__cart._active {
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    5% { transform: translate(3.5%, 3.5%); }
+    10% { transform: translate(-3.5%, -3.5%); }
+    15% { transform: translate(3.5%, 3.5%); }
+    20% { transform: translate(-3.5%, -3.5%); }
+    25% { transform: translate(0, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+.nav__cart._noffication:not(._active) {
     position: relative;
     animation: shake 2.4s ease-in-out infinite;
 }
 
-.nav__cart._active::before {
+.nav__cart._noffication:not(._active)::before {
     content: '';
     position: absolute;
     top: -2px;
     right: -2px;
     width: 12px;
     height: 12px;
-    color: white;
     background-color: orange;
     border-radius: 50%;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .dishes {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 32px;
+    padding-bottom: 120px;
 }
 
 .dishes__nav {
     width: 88%;
     padding: 8px 16px;
-
     background-color: var(--color1);
+    border-bottom: 2px solid var(--color3);
     border-radius: 20px;
-
     z-index: 102;
-
     overflow-x: auto;
-    /* overflow-y: hidden; */
-
     position: sticky;
     top: 50px;
     left: 6%;
-
     transform-origin: center center;
-    transition: 300ms cubic-bezier(.01, .61, .97, .3);
-
+    transition: 250ms cubic-bezier(.01, .61, .97, .3);
     display: flex;
-    flex-direction: row;
-    justify-content: start;
     align-items: center;
-    flex-wrap: nowrap;
     gap: 20px;
-
     white-space: nowrap;
 }
 
@@ -140,38 +103,38 @@ nav {
 
 .dishes__nav._fullwidth {
     width: 100vw;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    left: 0;
     border-radius: 0 0 20px 20px;
     transform: translateX(0);
 }
 
-.dishes__list {
+.section__list {
     display: flex;
     align-items: stretch;
     padding: 16px;
+    transition: 300ms;
     gap: 16px;
-    overflow-y: hidden;
     overflow-x: auto;
     width: 100vw;
     flex-wrap: nowrap;
 }
 
-
-
-
-
-
-
 .card {
     display: flex;
     flex-direction: column;
-    gap: 0;
     width: 333px;
     border: 2px solid var(--color3);
     border-radius: 20px;
     flex-shrink: 0;
-    background: var(--color1-1);
-    padding: 0;
     background: var(--color1);
+    padding: 0;
+    transition: 200ms;
+}
+
+.card._selected {
+    background: var(--color2);
 }
 
 .card__content {
@@ -191,7 +154,6 @@ nav {
 
 .card__portion {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
@@ -203,7 +165,6 @@ nav {
 
 .card__img img {
     object-fit: cover;
-    object-position: center center;
     width: 100%;
     border-radius: 20px 20px 0 0;
 }
@@ -223,10 +184,10 @@ nav {
     justify-content: center;
 }
 
-.portion__management button,
-.portion__management p {
+.portion__management > * {
     width: 40px;
     height: 40px;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,10 +198,148 @@ nav {
     border: 1px solid var(--color3);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .portion__management button:active {
     background-color: var(--color3);
     color: var(--color1);
     transform: scale(101%);
 }
 
+.cart {
+    position: fixed;
+    z-index: 102;
+    top: 50px;
+    left: 100vw;
+    width: 100%;
+    height: calc(100vh - 50px);
+    padding: 20px;
+    background-color: var(--color1);
+    color: var(--color4);
+    overflow-y: scroll;
+    transition: 350ms;
+}
 
+.cart._active {
+    left: 0;
+}
+
+.cart h1 {
+    margin-bottom: 40px;
+}
+
+#callOfficiant {
+    width: 80%;
+    padding: 8px 6px;
+    text-align: center;
+    margin: 20px 10%;
+    border-radius: 8px;
+    background: transparent;
+    transition: background 300ms;
+    border: 2px solid var(--color3);
+}
+
+#callOfficiant:active {
+    transform: scale(90%);
+    background: var(--color3);
+}
+
+.cart__list {
+    overflow-x: hidden;
+    width: 100vw;нап
+    position: relative;
+    left: -20px;
+}
+
+.card__portion._0 {
+    display: none;
+}
+
+body._whenCart {
+    overflow: hidden;
+}
+
+.popup_sure,
+.popup_call {
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 124;
+    transition: 300ms;
+}
+
+.popup_sure._active,
+.popup_call._active {
+    display: block;
+}
+
+@keyframes popupCreating {
+    from {
+        opacity: 0;
+        transform: scale(70%);
+    }
+    to {
+        opacity: 1;
+        transform: scale(100%);
+    }
+}
+
+.popup__overlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.551);
+}
+
+.popup__info {
+    position: fixed;
+    background-color: var(--color1);
+    border: 1px solid var(--color3);
+    left: calc(50% - 180px);
+    top: calc(50% - 130px);
+    width: 360px;
+    height: 260px;
+    z-index: 125;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    animation: popupCreating 300ms forwards;
+}
+
+.popup__info button {
+    width: 200px;
+    height: 28px;
+    background: transparent;
+    border: 2px solid var(--color3);
+    color: var(--color4);
+    border-radius: 8px;
+}
+
+.popup__button_ok {
+    background-color: var(--color3) !important;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Animation for removing elements */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.removing {
+    animation: fadeOut 300ms forwards;
+}
