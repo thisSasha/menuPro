@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link href="https://fonts.googleapis.com/css?family=SUSE:100,200,300,regular,500,600,700,800" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/gh/oathanrex/font-awesome-pro@main/fontawesome-pro-6.5.2-web/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/gh/oathanrex/font-awesome-pro@main/fontawesome-pro-6.5.2-web/css/all.min.css"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/root.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/menu.css">
@@ -16,21 +19,23 @@
 <body>
 
     <nav id="mainNav" class="hidden">
-        <div class="nav__changeLang">
-            <a href="./menu-ru.html">RU</a> |
-            <a href="./menu-de.html">DE</a>
-        </div>
-        <a href="index.html" class="nav__logo"><img src="./img/main/logo.svg" alt="Logo"></a>
-        <div class="nav__links">
-            <button class="nav__theme _circleBtn">
-                <i class="fa-solid fa-sun-bright"></i>
-            </button>
-            <button class="nav__cart _circleBtn">
-                <i class="fa-regular fa-cart-shopping"></i>
-            </button>
+        <div class="nav__container">
+            <div class="nav__changeLang">
+                <a href="./menu-ru.html">RU</a> |
+                <a href="./menu-de.html">DE</a>
+            </div>
+            <a href="index.html" class="nav__logo"><img src="./img/main/logo.svg" alt="Logo"></a>
+            <div class="nav__links">
+                <button class="nav__theme _circleBtn">
+                    <i class="fa-solid fa-sun-bright"></i>
+                </button>
+                <button class="nav__cart _circleBtn">
+                    <i class="fa-regular fa-cart-shopping"></i>
+                </button>
+            </div>
         </div>
     </nav>
-    
+
     <div class="overlay"></div>
 
     <h1 id="loadingPlaceholder">Загрузка меню...</h1>

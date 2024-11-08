@@ -9,10 +9,18 @@ nav {
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 8px 16px;
     z-index: 103;
     background: var(--color1);
+}
+
+.nav__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: var(--maxWidth);
 }
 
 .nav__changeLang {
@@ -74,6 +82,7 @@ nav {
 
 .dishes__nav {
     width: 88%;
+    max-width: var(--maxWidth);
     padding: 8px 16px;
     background-color: var(--color1);
     border-bottom: 2px solid var(--color3);
@@ -103,6 +112,7 @@ nav {
 
 .dishes__nav._fullwidth {
     width: 100vw;
+    max-width: var(--maxWidth);
     padding-top: 12px;
     padding-bottom: 12px;
     left: 0;
@@ -118,6 +128,7 @@ nav {
     gap: 16px;
     overflow-x: auto;
     width: 100vw;
+    max-width: var(--maxWidth);
     flex-wrap: nowrap;
 }
 
@@ -223,6 +234,7 @@ input::-webkit-inner-spin-button {
     top: 50px;
     left: 100vw;
     width: 100%;
+    max-width: var(--maxWidth);
     height: calc(100vh - 50px);
     padding: 20px;
     background-color: var(--color1);
@@ -258,6 +270,7 @@ input::-webkit-inner-spin-button {
 .cart__list {
     overflow-x: hidden;
     width: 100vw;
+    max-width: var(--maxWidth);
     position: relative;
     left: -20px;
 }
@@ -341,7 +354,7 @@ body._whenCart {
     display: none;
 }
 
-/* Animation for removing elements */
+
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
@@ -349,4 +362,19 @@ body._whenCart {
 
 .removing {
     animation: fadeOut 300ms forwards;
+}
+
+
+
+
+@media (min-width: 700px) {
+    .cart {
+        transform: translate(-50%, -100%);
+        left: 50%;
+    }
+
+    .cart._active {
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
 }

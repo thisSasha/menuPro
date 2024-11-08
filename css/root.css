@@ -17,3 +17,8 @@
     --color3: #c2404f;
     --color4: #f4f9fb;
 }
+
+
+:root {
+    --maxWidth: 700px;
+}
