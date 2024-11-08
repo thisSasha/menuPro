@@ -270,7 +270,6 @@ export let dishesData = {
 
 export let setDishesData = function (newData) {
     dishesData = newData;
-    console.log(dishesData);
 };
 
 export let getDishesData = function () {

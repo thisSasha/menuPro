@@ -133,7 +133,7 @@ nav {
     transition: 200ms;
 }
 
-.card._selected {
+.card._inCart {
     background: var(--color2);
 }
 
@@ -164,7 +164,9 @@ nav {
     display: flex;
     justify-content: center;
     align-items: start;
-    border-radius: 20px 20px 0 0;
+    border-radius: 18px 18px 0 0;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
 }
 
@@ -172,7 +174,6 @@ nav {
     object-fit: cover;
     min-height: 100%;
     min-width: 100%;
-    border-radius: 20px 20px 0 0;
 }
 
 .card__name {

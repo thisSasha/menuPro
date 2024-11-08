@@ -41,7 +41,6 @@ export function renderMenu() {
                     card.classList.add('_inCart');
                 };
             };
-            console.log(`./img/menu/${item.name.ru}.jpg`);
             card.innerHTML = `
                 <div class="card__img">
                     <img src="./img/menu/${item.name.ru}.jpg" alt="">
@@ -117,7 +116,8 @@ function updateMenu(categoryName, dishData, index, portionName, action) {
     if (!cartData[categoryName]) {
         cartData[categoryName] = { items: [], name: dishesData[categoryName].name };
     };
-
+    const input = document.querySelector(`input[data-category="${categoryName}"][data-index="${index}"][data-size="${portionName}"]`);
+    const cardDom = input.parentNode.parentNode.parentNode.parentNode.parentNode;
     let cartItem = cartData[categoryName].items.find(item => item.name[data.language] === dishData.name[data.language]);
 
     if (!cartItem && action === 'add') {
@@ -148,7 +148,6 @@ function updateMenu(categoryName, dishData, index, portionName, action) {
         delete cartData[categoryName];
     };
 
-    const input = document.querySelector(`input[data-category="${categoryName}"][data-index="${index}"][data-size="${portionName}"]`);
     if (input) {
         const value = cartItem && cartItem.count[portionName] ? cartItem.count[portionName] : 0;
         input.value = value;
