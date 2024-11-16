@@ -1,9 +1,5 @@
 body {
     min-height: 100vh;
-    background-image: url(../img/main/bg-1.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .bg {
@@ -20,7 +16,10 @@ body {
     background-repeat: no-repeat;
 }
 
-
+.hidden, .hidden * {
+    opacity: 0;
+    visibility: hidden;
+}
 
 .overlay {
     background-color: var(--color0);
@@ -42,6 +41,7 @@ body {
     text-decoration: none;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
+    transition: opacity 300ms;
     margin: 0;
     padding: 0;
     border: 0;

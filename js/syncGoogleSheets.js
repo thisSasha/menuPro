@@ -4,28 +4,25 @@ import { setDishesData } from "./store.js";
 let api = "https://script.google.com/macros/s/AKfycbzQO98Ddw4JUXQpy036Axst0n9y-h3S3xEanj-V5k0egpsvOf7jGI5_KqlQuVu02fqR/exec";
 
 async function fetchDishesList() {
+    const loadingPreloader = document.getElementById('loadingPreloader');
     try {
         const response = await fetch(api);
         if (!response.ok) {
             throw new Error('Сеть ответила с ошибкой: ' + response.status);
-        }
+        };
         const data = await response.json();
         processData(data);
         document.getElementById('mainNav').classList.remove('hidden');
         document.querySelector('main.dishes').classList.remove('hidden');
         document.querySelector('section.cart').classList.remove('hidden');
-        const loadingPlaceholder = document.getElementById('loadingPlaceholder');
-        if (loadingPlaceholder) {
-            loadingPlaceholder.remove();
-        }
+        setTimeout(() => {
+            loadingPreloader.classList.add('hidden');
+        }, 200);
     } catch (error) {
         console.error('Ошибка:', error);
-        const loadingPlaceholder = document.getElementById('loadingPlaceholder');
-        if (loadingPlaceholder) {
-            loadingPlaceholder.textContent = 'Ошибка загрузки меню. Пожалуйста, попробуйте позже.';
-        }
-    }
-}
+        loadingPreloader.textContent = 'Ошибка загрузки меню. Пожалуйста, попробуйте позже.';
+    };
+};
 
 fetchDishesList();
 

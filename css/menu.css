@@ -353,9 +353,7 @@ body._whenCart {
     background-color: var(--color3) !important;
 }
 
-.hidden {
-    display: none;
-}
+
 
 
 @keyframes fadeOut {
@@ -379,5 +377,37 @@ body._whenCart {
     .cart._active {
         left: 50%;
         transform: translate(-50%, 0);
+    }
+}
+
+
+
+
+#loadingPreloader {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#loadingPreloader img {
+    transition: 500ms;
+    opacity: 0.8;
+    animation: preload infinite 10s ease;
+}
+
+@keyframes preload {
+    from {
+        opacity: 1;
+        transform: perspective(100px) rotateY(0deg) scale(120%);
+    }
+
+    to {
+        opacity: 0.3;
+        transform: perspective(100px) rotateY(3600deg) scale(40%);
     }
 }
