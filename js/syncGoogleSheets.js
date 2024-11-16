@@ -105,8 +105,8 @@ function processData(data) {
 
 export let additData = {
     bg: {
-        menu: '../img/main/bg-1.jpg',
-        main: '../img/main/bg-2.jpg',
+        menu: './img/main/bg-1.jpg',
+        main: './img/main/bg-1.jpg',
     },
     colors: {
         darkTheme: {
