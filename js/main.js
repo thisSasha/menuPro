@@ -1,11 +1,14 @@
 import { renderMenu, renderText } from "./render.js";
 import { sendBot } from './telegram.js';
+import { additData } from './syncGoogleSheets.js';
+import { cartData } from "./store.js";
 
 const cartButton = document.querySelector('.nav__cart');
 const cart = document.querySelector('.cart');
 const navTheme = document.querySelector('.nav__theme');
 const callButton = document.querySelector('#callOfficiant');
-const callPopup = document.querySelector('.popup_call');
+const sendMenu = document.querySelector('#sendMenu')
+const callPopup = document.querySelector('.popup_order');
 
 export function main() {
     renderMenu();
@@ -72,4 +75,87 @@ window.onscroll = () => {
 callButton.onclick = () => {
     sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
     callPopup.classList.add('_active');
+    document.querySelector('#popup_order__cancel').onclick = function () {
+        let oldCallPopup = callPopup.querySelector('p').innerHTML;
+        callPopup.querySelector('p').innerHTML = 'Отменено';
+        sendBot(`Стол N${localStorage.getItem('table')} отменил вызов официанта.`);
+        setTimeout(() => {
+            callPopup.classList.remove('_active');
+            callPopup.querySelector('p').innerHTML = oldCallPopup;
+        }, 1300);
+    };
+};
+
+
+
+
+function initializeMenuTheme() {
+    // Применяем фон только для страниц меню
+    document.body.style.backgroundImage = `url(${additData.bg.menu})`;
+    
+    // Создаем CSS для обеих тем
+    const lightThemeCSS = createThemeCSS(additData.colors.lightTheme);
+    const darkThemeCSS = createThemeCSS(additData.colors.darkTheme);
+
+    // Добавляем стили в head
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+        .light-theme {
+            ${lightThemeCSS}
+        }
+        
+        .dark-theme {
+            ${darkThemeCSS}
+        }
+    `;
+    document.head.appendChild(styleElement);
+}
+
+function createThemeCSS(theme) {
+    return Object.entries(theme)
+        .map(([key, value]) => `--${key}: ${value};`)
+        .join('\n');
+}
+
+document.addEventListener('DOMContentLoaded', initializeMenuTheme);
+
+
+sendMenu.onclick = function () {
+    let formattedCart = Object.entries(cartData).map(([category, categoryData]) => {
+        // Получаем название категории на русском языке
+        const categoryName = categoryData.name.ru;
+        
+        // Форматируем каждый товар в категории
+        const items = categoryData.items
+            .filter(item => item.count) // Фильтруем только товары с count
+            .map((item, index) => {
+                const itemName = item.name.ru;
+                const sizes = Object.entries(item.count)
+                    .map(([size, count]) => `    ${size} - ${count}`)
+                    .join('\n');
+                return ` ${index + 1}. ${itemName}\n${sizes}`;
+            })
+            .join('\n');
+
+        return `${categoryName}:\n${items}`;
+    }).join('\n\n');
+
+
+    sendBot(`
+Стол: ${localStorage.getItem('table')}
+Язык: ${navigator.language}
+
+${formattedCart}
+    `);
+    let oldCallPopup = callPopup.querySelector('p').innerHTML;
+    callPopup.querySelector('p').innerHTML = 'Ваш заказ отправлен';
+    callPopup.classList.add('_active');
+    document.querySelector('#popup_order__cancel').onclick = function () {
+        callPopup.querySelector('p').innerHTML = 'Отменено';
+        sendBot(`Стол N${localStorage.getItem('table')} отменил свой заказ.`);
+        setTimeout(() => {
+            callPopup.classList.remove('_active');
+            callPopup.querySelector('p').innerHTML = oldCallPopup;
+        }, 1300);
+    };
 };

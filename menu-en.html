@@ -38,7 +38,7 @@
 
     <div class="overlay"></div>
 
-    <h1 id="loadingPlaceholder">Загрузка меню...</h1>
+    <h1 id="loadingPlaceholder">Loading the menu...</h1>
 
     <main class="dishes hidden">
         <h1 id="menuTitle">Меню</h1>
@@ -49,11 +49,14 @@
         <h1 id="orderTitle">Ваш заказ</h1>
         <div class="cart__list"></div>
         <button id="callOfficiant">Вызвать официанта</button>
+        <button id="sendMenu">Отправить меню</button>
     </section>
 
-    <footer></footer>
+    <footer>
+        
+    </footer>
 
-    <div class="popup_sure">
+    <div class="popup popup_sure">
         <div class="popup__overlay"></div>
         <div class="popup__info">
             <p>Вы хотите удалить эту порцию?</p>
@@ -62,12 +65,15 @@
         </div>
     </div>
 
-    <div class="popup_call">
+    
+    <div class="popup popup_order">
         <div class="popup__info">
             <p>Официант скоро подойдёт</p>
             <button onclick="this.parentNode.parentNode.classList.remove('_active')">Хорошо</button>
+            <button id="popup_cancel">Отмена</button>
         </div>
     </div>
+
 
     <script type="module" src="./js/store.js"></script>
     <script type="module" src="./js/render.js"></script>

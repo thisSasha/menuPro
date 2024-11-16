@@ -47,13 +47,14 @@
 
     <section class="cart hidden">
         <h1 id="orderTitle">Ваш заказ</h1>
-        <div class="cart__list"></div>
         <button id="callOfficiant">Вызвать официанта</button>
+        <button id="sendMenu">Отправить меню</button>
+        <div class="cart__list"></div>
     </section>
 
     <footer></footer>
 
-    <div class="popup_sure">
+    <div class="popup popup_sure">
         <div class="popup__overlay"></div>
         <div class="popup__info">
             <p>Вы хотите удалить эту порцию?</p>
@@ -62,10 +63,12 @@
         </div>
     </div>
 
-    <div class="popup_call">
+    
+    <div class="popup popup_order">
         <div class="popup__info">
             <p>Официант скоро подойдёт</p>
             <button onclick="this.parentNode.parentNode.classList.remove('_active')">Хорошо</button>
+            <button id="popup_order__cancel">Отмена</button>
         </div>
     </div>
 

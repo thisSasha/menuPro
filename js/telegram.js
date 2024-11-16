@@ -1,5 +1,22 @@
-const botToken = '7277364807:AAElZRGHu0T7RXfTHqvNJq6RjqkldVKXL5o';
-const chatIds = ['1818025468'];
+let botToken = '';
+let chatIds = [];
+
+document.addEventListener("DOMContentLoaded", function () {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', './php/config.php', true);
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      var response = xhr.responseText.trim();
+      var [token, ids] = response.split('\n', 2);
+      botToken = token;
+      chatIds = ids.slice(1, -1).replace(/'/g, "").split(",");
+    }
+  };
+  xhr.send();
+});
+
+
+
 
 export function sendBot(message) {
     chatIds.forEach(chatId => {

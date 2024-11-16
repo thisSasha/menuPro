@@ -11,6 +11,7 @@ export let languageData = {
         '#menuTitle': 'Меню',
         '#orderTitle': 'Ваш заказ',
         '#callOfficiant': 'Вызвать официанта',
+        '#sendMenu': 'Отправить заказ',
         'forJs': {
             total: 'Итого',
             portion: 'Порция',
@@ -22,6 +23,7 @@ export let languageData = {
         '#menuTitle': 'Menu',
         '#orderTitle': 'Your Order',
         '#callOfficiant': 'Call the waiter',
+        '#sendMenu': '',
         'forJs': {
             total: 'Total',
             portion: 'Portion',
@@ -33,6 +35,7 @@ export let languageData = {
         '#menuTitle': 'Menü',
         '#orderTitle': 'Ihre Bestellung',
         '#callOfficiant': 'Kellner rufen',
+        '#sendMenu': '',
         'forJs': {
             total: 'Gesamt',
             portion: 'Portion',

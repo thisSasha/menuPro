@@ -3,31 +3,28 @@ import { setDishesData } from "./store.js";
 
 let api = "https://script.google.com/macros/s/AKfycbzQO98Ddw4JUXQpy036Axst0n9y-h3S3xEanj-V5k0egpsvOf7jGI5_KqlQuVu02fqR/exec";
 
-function fetchDishesList() {
-    return fetch(api)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Сеть ответила с ошибкой: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            processData(data);
-            document.getElementById('mainNav').classList.remove('hidden');
-            document.querySelector('main.dishes').classList.remove('hidden');
-            document.querySelector('section.cart').classList.remove('hidden');
-            const loadingPlaceholder = document.getElementById('loadingPlaceholder');
-            if (loadingPlaceholder) {
-                loadingPlaceholder.remove();
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-            const loadingPlaceholder = document.getElementById('loadingPlaceholder');
-            if (loadingPlaceholder) {
-                loadingPlaceholder.textContent = 'Ошибка загрузки меню. Пожалуйста, попробуйте позже.';
-            }
-        });
+async function fetchDishesList() {
+    try {
+        const response = await fetch(api);
+        if (!response.ok) {
+            throw new Error('Сеть ответила с ошибкой: ' + response.status);
+        }
+        const data = await response.json();
+        processData(data);
+        document.getElementById('mainNav').classList.remove('hidden');
+        document.querySelector('main.dishes').classList.remove('hidden');
+        document.querySelector('section.cart').classList.remove('hidden');
+        const loadingPlaceholder = document.getElementById('loadingPlaceholder');
+        if (loadingPlaceholder) {
+            loadingPlaceholder.remove();
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        const loadingPlaceholder = document.getElementById('loadingPlaceholder');
+        if (loadingPlaceholder) {
+            loadingPlaceholder.textContent = 'Ошибка загрузки меню. Пожалуйста, попробуйте позже.';
+        }
+    }
 }
 
 fetchDishesList();
@@ -86,4 +83,53 @@ function processData(data) {
 
     setDishesData(dishData);
     main();
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export let additData = {
+    bg: {
+        menu: '../img/main/bg-1.jpg',
+        main: '../img/main/bg-2.jpg',
+    },
+    colors: {
+        darkTheme: {
+            darkTheme: {
+                color0: 'rgba(0, 0, 0, 0.7)', // немного прозрачный фон
+                color1: '#060606', // фон
+                color1_1: '#120f0c59', // очень прозрачный фон
+                color1_5: '#150b04c5', // полупрозрачный фон
+                color2: '#39090f', // немного изменённый акцент-цвет
+                color3: '#c2404f', // акцент-цвет
+                color4: '#f4f9fb', // цвет текста
+            },
+        },
+        
+        lightTheme: {
+            color0: 'rgba(255, 255, 255, 0.7)', // немного прозрачный фон
+            color1: '#f4f9fb', // фон
+            color1_1: '#f4f9fb59', // очень прозрачный фон
+            color1_5: '#f4f9fbc5', // полупрозрачный фон
+            color2: '#f9b7bf', // немного изменённый акцент-цвет
+            color3: '#87232f', // акцент-цвет
+            color4: '#030303', // цвет текста
+        },
+    },
+};
+
