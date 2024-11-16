@@ -90,31 +90,30 @@ callButton.onclick = () => {
 
 
 function initializeMenuTheme() {
-    // Применяем фон только для страниц меню
+    if (!additData?.colors) return;
+
     document.body.style.backgroundImage = `url(${additData.bg.menu})`;
     
-    // Создаем CSS для обеих тем
-    const lightThemeCSS = createThemeCSS(additData.colors.lightTheme);
-    const darkThemeCSS = createThemeCSS(additData.colors.darkTheme);
-
-    // Добавляем стили в head
-    const styleElement = document.createElement('style');
-    styleElement.textContent = `
-        .light-theme {
-            ${lightThemeCSS}
-        }
-        
-        .dark-theme {
-            ${darkThemeCSS}
-        }
-    `;
-    document.head.appendChild(styleElement);
+    const theme = document.body.classList.contains('light-theme') 
+        ? additData.colors.lightTheme 
+        : additData.colors.darkTheme;
+    console.log(theme);
+    if (!theme) return;
+    
+    let styleString = '';
+    for (const [key, value] of Object.entries(theme)) {
+        styleString += `--${key}: ${value}; `;
+    }
+    
+    document.documentElement.setAttribute('style', styleString);
 }
+
+document.addEventListener('DOMContentLoaded', initializeMenuTheme);
 
 function createThemeCSS(theme) {
     return Object.entries(theme)
-        .map(([key, value]) => `--${key}: ${value};`)
-        .join('\n');
+        .map(([key, value]) => `--${key}: ${value}`)
+        .join(';\n');
 }
 
 document.addEventListener('DOMContentLoaded', initializeMenuTheme);

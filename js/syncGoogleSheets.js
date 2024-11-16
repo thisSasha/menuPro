@@ -66,6 +66,7 @@ function processData(data) {
                 en: item['description-en'],
                 de: item['description-de'],
             },
+            img: item['img']
         };
 
         for (let i = 1; i <= 3; i++) {
@@ -110,17 +111,15 @@ export let additData = {
     },
     colors: {
         darkTheme: {
-            darkTheme: {
-                color0: 'rgba(0, 0, 0, 0.7)', // немного прозрачный фон
-                color1: '#060606', // фон
-                color1_1: '#120f0c59', // очень прозрачный фон
-                color1_5: '#150b04c5', // полупрозрачный фон
-                color2: '#39090f', // немного изменённый акцент-цвет
-                color3: '#c2404f', // акцент-цвет
-                color4: '#f4f9fb', // цвет текста
-            },
+            color0: 'rgba(0, 0, 0, 0.7)', // немного прозрачный фон
+            color1: '#060606', // фон
+            color1_1: '#120f0c59', // очень прозрачный фон
+            color1_5: '#150b04c5', // полупрозрачный фон
+            color2: '#39090f', // немного изменённый акцент-цвет
+            color3: '#c2404f', // акцент-цвет
+            color4: '#f4f9fb', // цвет текста
         },
-        
+
         lightTheme: {
             color0: 'rgba(255, 255, 255, 0.7)', // немного прозрачный фон
             color1: '#f4f9fb', // фон
