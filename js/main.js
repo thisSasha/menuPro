@@ -10,6 +10,7 @@ const callButton = document.querySelector('#callOfficiant');
 const sendMenu = document.querySelector('#sendMenu')
 const callPopup = document.querySelector('.popup_order');
 
+
 export function main() {
     renderMenu();
     renderText();
@@ -41,120 +42,125 @@ function observeSections() {
         if (activeLink) activeLink.classList.add('_active');
     };
 };
-
-cartButton.onclick = () => {
-    cartButton.classList.toggle('_active');
-    cart.classList.toggle('_active');
-    document.body.classList.toggle('_whenCart');
-};
-
-navTheme.onclick = () => {
-    document.body.classList.toggle('dark-theme');
-    document.body.classList.toggle('light-theme');
-};
-
-let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-document.body.classList.add(`${theme}-theme`);
-
-if (theme !== 'light' && theme !== 'dark') {
-    document.body.classList.add('light-theme');
-};
-
-let initDistance = null;
-
-window.onscroll = () => {
-    const dishesNav = document.querySelector('.dishes__nav');
-    const nav = document.querySelector('nav');
-    if (dishesNav && nav) {
-        const adjustedDistance = dishesNav.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
-        if (initDistance === null) initDistance = adjustedDistance;
-        dishesNav.classList.toggle('_fullwidth', initDistance < adjustedDistance);
+if (window.location.pathname.includes('menu')) {
+    cartButton.onclick = () => {
+        cartButton.classList.toggle('_active');
+        cart.classList.toggle('_active');
+        document.body.classList.toggle('_whenCart');
     };
-};
 
-callButton.onclick = () => {
-    sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
-    callPopup.classList.add('_active');
-    document.querySelector('#popup_order__cancel').onclick = function () {
+    navTheme.onclick = () => {
+        document.body.classList.toggle('dark-theme');
+        document.body.classList.toggle('light-theme');
+    };
+
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.body.classList.add(`${theme}-theme`);
+
+    if (theme !== 'light' && theme !== 'dark') {
+        document.body.classList.add('light-theme');
+    };
+
+    let initDistance = null;
+
+    window.onscroll = () => {
+        const dishesNav = document.querySelector('.dishes__nav');
+        const nav = document.querySelector('nav');
+        if (dishesNav && nav) {
+            const adjustedDistance = dishesNav.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+            if (initDistance === null) initDistance = adjustedDistance;
+            dishesNav.classList.toggle('_fullwidth', initDistance < adjustedDistance);
+        };
+    };
+
+    callButton.onclick = () => {
+        sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
+        callPopup.classList.add('_active');
+        document.querySelector('#popup_order__cancel').onclick = function () {
+            let oldCallPopup = callPopup.querySelector('p').innerHTML;
+            callPopup.querySelector('p').innerHTML = 'Отменено';
+            sendBot(`Стол N${localStorage.getItem('table')} отменил вызов официанта.`);
+            setTimeout(() => {
+                callPopup.classList.remove('_active');
+                callPopup.querySelector('p').innerHTML = oldCallPopup;
+            }, 1300);
+        };
+    };
+
+
+
+
+    function initializeMenuTheme() {
+        if (!additData?.colors) return;
+        document.body.style.backgroundImage = `url(${additData.bg.menu})`;
+        const lightTheme = additData.colors.lightTheme;
+        const darkTheme = additData.colors.darkTheme;
+        let lightStyleString = '.light-theme { ';
+        for (const [key, value] of Object.entries(lightTheme)) {
+            lightStyleString += `--${key}: ${value}; `;
+        };
+        lightStyleString += '}';
+        let darkStyleString = '.dark-theme { ';
+        for (const [key, value] of Object.entries(darkTheme)) {
+            darkStyleString += `--${key}: ${value}; `;
+        };
+        darkStyleString += '}';
+        const styleElement = document.createElement('style');
+        styleElement.textContent = lightStyleString + darkStyleString;
+        document.head.appendChild(styleElement);
+    };
+    
+    initializeMenuTheme();
+    
+    initializeMenuTheme();
+
+    document.addEventListener('DOMContentLoaded', initializeMenuTheme);
+
+    function createThemeCSS(theme) {
+        return Object.entries(theme)
+            .map(([key, value]) => `--${key}: ${value}`)
+            .join(';\n');
+    };
+
+    document.addEventListener('DOMContentLoaded', initializeMenuTheme);
+
+
+    sendMenu.onclick = function () {
+        let formattedCart = Object.entries(cartData).map(([category, categoryData]) => {
+            const categoryName = categoryData.name.ru;
+
+            // Форматируем каждый товар в категории
+            const items = categoryData.items
+                .filter(item => item.count) // Фильтруем только товары с count
+                .map((item, index) => {
+                    const itemName = item.name.ru;
+                    const sizes = Object.entries(item.count)
+                        .map(([size, count]) => `    ${size} - ${count}`)
+                        .join('\n');
+                    return ` ${index + 1}. ${itemName}\n${sizes}`;
+                })
+                .join('\n');
+
+            return `${categoryName}:\n${items}`;
+        }).join('\n\n');
+
+
+        sendBot(`
+    Стол: ${localStorage.getItem('table')}
+    Язык: ${navigator.language}
+
+    ${formattedCart}
+        `);
         let oldCallPopup = callPopup.querySelector('p').innerHTML;
-        callPopup.querySelector('p').innerHTML = 'Отменено';
-        sendBot(`Стол N${localStorage.getItem('table')} отменил вызов официанта.`);
-        setTimeout(() => {
-            callPopup.classList.remove('_active');
-            callPopup.querySelector('p').innerHTML = oldCallPopup;
-        }, 1300);
-    };
-};
-
-
-
-
-function initializeMenuTheme() {
-    if (!additData?.colors) return;
-
-    document.body.style.backgroundImage = `url(${additData.bg.menu})`;
-    
-    const theme = document.body.classList.contains('light-theme') 
-        ? additData.colors.lightTheme 
-        : additData.colors.darkTheme;
-    console.log(theme);
-    if (!theme) return;
-    
-    let styleString = '';
-    for (const [key, value] of Object.entries(theme)) {
-        styleString += `--${key}: ${value}; `;
-    }
-    
-    document.documentElement.setAttribute('style', styleString);
-}
-
-document.addEventListener('DOMContentLoaded', initializeMenuTheme);
-
-function createThemeCSS(theme) {
-    return Object.entries(theme)
-        .map(([key, value]) => `--${key}: ${value}`)
-        .join(';\n');
-}
-
-document.addEventListener('DOMContentLoaded', initializeMenuTheme);
-
-
-sendMenu.onclick = function () {
-    let formattedCart = Object.entries(cartData).map(([category, categoryData]) => {
-        // Получаем название категории на русском языке
-        const categoryName = categoryData.name.ru;
-        
-        // Форматируем каждый товар в категории
-        const items = categoryData.items
-            .filter(item => item.count) // Фильтруем только товары с count
-            .map((item, index) => {
-                const itemName = item.name.ru;
-                const sizes = Object.entries(item.count)
-                    .map(([size, count]) => `    ${size} - ${count}`)
-                    .join('\n');
-                return ` ${index + 1}. ${itemName}\n${sizes}`;
-            })
-            .join('\n');
-
-        return `${categoryName}:\n${items}`;
-    }).join('\n\n');
-
-
-    sendBot(`
-Стол: ${localStorage.getItem('table')}
-Язык: ${navigator.language}
-
-${formattedCart}
-    `);
-    let oldCallPopup = callPopup.querySelector('p').innerHTML;
-    callPopup.querySelector('p').innerHTML = 'Ваш заказ отправлен';
-    callPopup.classList.add('_active');
-    document.querySelector('#popup_order__cancel').onclick = function () {
-        callPopup.querySelector('p').innerHTML = 'Отменено';
-        sendBot(`Стол N${localStorage.getItem('table')} отменил свой заказ.`);
-        setTimeout(() => {
-            callPopup.classList.remove('_active');
-            callPopup.querySelector('p').innerHTML = oldCallPopup;
-        }, 1300);
-    };
+        callPopup.querySelector('p').innerHTML = 'Ваш заказ отправлен';
+        callPopup.classList.add('_active');
+        document.querySelector('#popup_order__cancel').onclick = function () {
+            callPopup.querySelector('p').innerHTML = 'Отменено';
+            sendBot(`Стол N${localStorage.getItem('table')} отменил свой заказ.`);
+            setTimeout(() => {
+                callPopup.classList.remove('_active');
+                callPopup.querySelector('p').innerHTML = oldCallPopup;
+            }, 1300);
+        };
+    };  
 };
