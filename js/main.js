@@ -1,7 +1,7 @@
 import { renderMenu, renderText } from "./render.js";
 import { sendBot } from './telegram.js';
 import { additData } from './syncGoogleSheets.js';
-import { cartData } from "./store.js";
+import { cartData, data, languageData } from "./store.js";
 
 const cartButton = document.querySelector('.nav__cart');
 const cart = document.querySelector('.cart');
@@ -74,64 +74,26 @@ if (window.location.pathname.includes('menu')) {
     };
 
     callButton.onclick = () => {
-        sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
         callPopup.classList.add('_active');
         document.querySelector('#popup_order__cancel').onclick = function () {
-            let oldCallPopup = callPopup.querySelector('p').innerHTML;
-            callPopup.querySelector('p').innerHTML = 'Отменено';
-            sendBot(`Стол N${localStorage.getItem('table')} отменил вызов официанта.`);
-            setTimeout(() => {
-                callPopup.classList.remove('_active');
-                callPopup.querySelector('p').innerHTML = oldCallPopup;
-            }, 1300);
+            callPopup.classList.remove('_active');
+        };
+        document.querySelector('#popup_order__confirm').onclick = function () {
+            sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
+            this.parentNode.parentNode.classList.remove('_active')
         };
     };
 
 
 
-
-    function initializeMenuTheme() {
-        if (!additData?.colors) return;
-        document.body.style.backgroundImage = `url(${additData.bg.menu})`;
-        const lightTheme = additData.colors.lightTheme;
-        const darkTheme = additData.colors.darkTheme;
-        let lightStyleString = '.light-theme { ';
-        for (const [key, value] of Object.entries(lightTheme)) {
-            lightStyleString += `--${key}: ${value}; `;
-        };
-        lightStyleString += '}';
-        let darkStyleString = '.dark-theme { ';
-        for (const [key, value] of Object.entries(darkTheme)) {
-            darkStyleString += `--${key}: ${value}; `;
-        };
-        darkStyleString += '}';
-        const styleElement = document.createElement('style');
-        styleElement.textContent = lightStyleString + darkStyleString;
-        document.head.appendChild(styleElement);
-    };
-    
-    initializeMenuTheme();
-    
-    initializeMenuTheme();
-
-    document.addEventListener('DOMContentLoaded', initializeMenuTheme);
-
-    function createThemeCSS(theme) {
-        return Object.entries(theme)
-            .map(([key, value]) => `--${key}: ${value}`)
-            .join(';\n');
-    };
-
-    document.addEventListener('DOMContentLoaded', initializeMenuTheme);
 
 
     sendMenu.onclick = function () {
         let formattedCart = Object.entries(cartData).map(([category, categoryData]) => {
             const categoryName = categoryData.name.ru;
 
-            // Форматируем каждый товар в категории
             const items = categoryData.items
-                .filter(item => item.count) // Фильтруем только товары с count
+                .filter(item => item.count)
                 .map((item, index) => {
                     const itemName = item.name.ru;
                     const sizes = Object.entries(item.count)
@@ -145,22 +107,27 @@ if (window.location.pathname.includes('menu')) {
         }).join('\n\n');
 
 
-        sendBot(`
-    Стол: ${localStorage.getItem('table')}
-    Язык: ${navigator.language}
 
-    ${formattedCart}
-        `);
         let oldCallPopup = callPopup.querySelector('p').innerHTML;
-        callPopup.querySelector('p').innerHTML = 'Ваш заказ отправлен';
+        callPopup.querySelector('p').innerHTML = languageData[data.language].forJs.sureOrder;
         callPopup.classList.add('_active');
         document.querySelector('#popup_order__cancel').onclick = function () {
-            callPopup.querySelector('p').innerHTML = 'Отменено';
-            sendBot(`Стол N${localStorage.getItem('table')} отменил свой заказ.`);
+            callButton.disabled = true;
+            callPopup.querySelector('p').innerHTML = languageData[data.language].forJs.canceled;
             setTimeout(() => {
+                callButton.disabled = false;
                 callPopup.classList.remove('_active');
                 callPopup.querySelector('p').innerHTML = oldCallPopup;
             }, 1300);
         };
-    };  
+        document.querySelector('#popup_order__confirm').onclick = function () {
+            sendBot(`
+Стол: ${localStorage.getItem('table')}
+Язык: ${data.language}
+
+${formattedCart}`);
+            callPopup.classList.remove('_active');
+            callPopup.querySelector('p').innerHTML = oldCallPopup;
+        };
+    };
 };

@@ -12,10 +12,18 @@ export let languageData = {
         '#orderTitle': 'Ваш заказ',
         '#callOfficiant': 'Вызвать официанта',
         '#sendMenu': 'Отправить заказ',
+        '#sureCall': 'Вы уверены в вызове официанта?',
+        '#popup_order__confirm': 'Да',
+        '#popup_order__cancel': 'Отмена',
+        '.popup__button_ok': 'Да',
+        '.popup__button_cancel': 'Отмена',
+        '#surePortions"': 'Вы хотите удалить эту порцию?',
         'forJs': {
             total: 'Итого',
+            canceled: 'Отменено',
             portion: 'Порция',
-            count: 'Количество'
+            count: 'Количество',
+            sureOrder: 'Вы уверены в отправке заказа?',
         },
     },
     en: {
@@ -23,11 +31,19 @@ export let languageData = {
         '#menuTitle': 'Menu',
         '#orderTitle': 'Your Order',
         '#callOfficiant': 'Call the waiter',
-        '#sendMenu': '',
+        '#sendMenu': 'Send Order',
+        '#sureCall': 'Are you sure you want to call the waiter?',
+        '#popup_order__confirm': 'Yes',
+        '#popup_order__cancel': 'Cancel',
+        '.popup__button_ok': 'Yes',
+        '.popup__button_cancel': 'Cancel',
+        '#surePortions': 'Do you want to remove this portion?',
         'forJs': {
             total: 'Total',
+            canceled: 'Cancelled',
             portion: 'Portion',
-            count: 'Count'
+            count: 'Count',
+            sureOrder: 'Are you sure you want to send the order?',
         },
     },
     de: {
@@ -35,11 +51,19 @@ export let languageData = {
         '#menuTitle': 'Menü',
         '#orderTitle': 'Ihre Bestellung',
         '#callOfficiant': 'Kellner rufen',
-        '#sendMenu': '',
+        '#sendMenu': 'Bestellung senden',
+        '#sureCall': 'Sind Sie sicher, dass Sie den Kellner rufen möchten?',
+        '#popup_order__confirm': 'Ja',
+        '#popup_order__cancel': 'Abbrechen',
+        '.popup__button_ok': 'Ja',
+        '.popup__button_cancel': 'Abbrechen',
+        '#surePortions': 'Möchten Sie diese Portion entfernen?',
         'forJs': {
             total: 'Gesamt',
+            canceled: 'Abgebrochen',
             portion: 'Portion',
-            count: 'Anzahl'
+            count: 'Anzahl',
+            sureOrder: 'Sind Sie sicher, dass Sie die Bestellung senden möchten?',
         },
     },
 };

@@ -253,7 +253,7 @@ input::-webkit-inner-spin-button {
 
 .cart > button {
     width: 80%;
-    padding: 8px 6px;
+    padding: 12px 8px;
     text-align: center;
     margin: 6px 10% 10px 10%;
     border-radius: 8px;
@@ -342,7 +342,7 @@ body._whenCart {
 
 .popup__info button {
     width: 200px;
-    height: 32px;
+    height: 40px;
     background: transparent;
     border: 2px solid var(--color3);
     color: var(--color4);
