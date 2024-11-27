@@ -17,7 +17,7 @@ export let languageData = {
         '#popup_order__cancel': 'Отмена',
         '.popup__button_ok': 'Да',
         '.popup__button_cancel': 'Отмена',
-        '#surePortions"': 'Вы хотите удалить эту порцию?',
+        '#surePortions': 'Вы хотите удалить эту порцию?',
         'forJs': {
             total: 'Итого',
             canceled: 'Отменено',
