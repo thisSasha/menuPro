@@ -4,9 +4,6 @@ import { cartData, data, languageData } from "./store.js";
 const cartButton = document.querySelector('.nav__cart');
 const cart = document.querySelector('.cart');
 const navTheme = document.querySelector('.nav__theme');
-const callButton = document.querySelector('#callOfficiant');
-const sendMenu = document.querySelector('#sendMenu')
-const callPopup = document.querySelector('.popup_order');
 
 
 export function main() {
@@ -80,64 +77,6 @@ if (window.location.pathname.includes('menu')) {
             const adjustedDistance = dishesNav.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
             if (initDistance === null) initDistance = adjustedDistance;
             dishesNav.classList.toggle('_fullwidth', initDistance < adjustedDistance);
-        };
-    };
-
-    callButton.onclick = () => {
-        callPopup.classList.add('_active');
-        document.querySelector('#popup_order__cancel').onclick = function () {
-            callPopup.classList.remove('_active');
-        };
-        document.querySelector('#popup_order__confirm').onclick = function () {
-            sendBot(`Стол N${localStorage.getItem('table')} зовёт официанта.`);
-            this.parentNode.parentNode.classList.remove('_active')
-        };
-    };
-
-
-
-
-
-    sendMenu.onclick = function () {
-        let formattedCart = Object.entries(cartData).map(([category, categoryData]) => {
-            const categoryName = categoryData.name.ru;
-
-            const items = categoryData.items
-                .filter(item => item.count)
-                .map((item, index) => {
-                    const itemName = item.name.ru;
-                    const sizes = Object.entries(item.count)
-                        .map(([size, count]) => `    ${size} - ${count}`)
-                        .join('\n');
-                    return ` ${index + 1}. ${itemName}\n${sizes}`;
-                })
-                .join('\n');
-
-            return `${categoryName}:\n${items}`;
-        }).join('\n\n');
-
-
-
-        let oldCallPopup = callPopup.querySelector('p').innerHTML;
-        callPopup.querySelector('p').innerHTML = languageData[data.language].forJs.sureOrder;
-        callPopup.classList.add('_active');
-        document.querySelector('#popup_order__cancel').onclick = function () {
-            callButton.disabled = true;
-            callPopup.querySelector('p').innerHTML = languageData[data.language].forJs.canceled;
-            setTimeout(() => {
-                callButton.disabled = false;
-                callPopup.classList.remove('_active');
-                callPopup.querySelector('p').innerHTML = oldCallPopup;
-            }, 1300);
-        };
-        document.querySelector('#popup_order__confirm').onclick = function () {
-            sendBot(`
-Стол: ${localStorage.getItem('table')}
-Язык: ${data.language}
-
-${formattedCart}`);
-            callPopup.classList.remove('_active');
-            callPopup.querySelector('p').innerHTML = oldCallPopup;
         };
     };
 };
