@@ -1,7 +1,8 @@
 export let data = {
     valute: '$',
     language: document.documentElement.lang,
-    name: 'Shakespeare'
+    name: 'Shakespeare',
+    languages: ['ru', 'en', 'de']
 };
 
 
